@@ -1,4 +1,3 @@
-
 $(function () {
     var socket = io();
     $('form').submit(function (e) {
@@ -28,12 +27,4 @@ $(function () {
     socket.on('stopTyping', function (msg) {
         $('#typing').replaceWith($('<p style="color:aliceblue">').text(msg));
     });
-
- /*   let isTyping = false;
-    let timeout;
-
-    function timeoutFunction(){
-        isTyping = false;
-        socket.emit('nomoretyping', )
-    }*/
 });
