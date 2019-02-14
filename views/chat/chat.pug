@@ -5,7 +5,7 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src="/socket.io/socket.io.js")
     script(src="https://code.jquery.com/jquery-1.11.1.js")
-    script(src="/socket.js")
+
   body
     block content
 
@@ -14,9 +14,55 @@ block content
     h1= title
     p Bienvenu sur #{title}, #{slogan}
     h2 Vous chattez avec 
-    ul(id="message")
-    br
-    form
-        textarea(name="writePart", cols="200%", rows="2") 
-        button(type="submit",) Envoyer
+    ul(id="messages")
+    span(id="whoistyping")
+    form(action="")
+        div(id="typing")
+        div(id="stopTyping")
+        div(id="online")
+        input(id="m" autocomplete="off" autofocus)
+        button Send
+    
+    
+    script.
+        
+        $(function () { 
+            var socket = io();    
+            $('form').submit(function (e) {
+                e.preventDefault();
+                socket.emit('chat message', $('#m').val());
+                $('#m').val('');
+                return false;
+            });
+            $('#m').on('input', function () {
+                socket.emit('typing');
+            });
+            $('#m').on('blur', function () {
+                socket.emit('stopTyping');
+            });
+            socket.on('chat message', function (msg) {
+                $('#messages').append($('<li>').text(msg));
+            });
+            socket.on('online', function (msg) {
+                $('#online').replaceWith($('<p style="color:aliceblue">').text(msg));
+            });
+            socket.on('info co', function (msg) {
+                $('#messages').append($('<h4>').text(msg));
+            });
+            socket.on('typing', function (msg) {
+                $('#typing').replaceWith($('<p style="color:aliceblue">').text(msg));
+            });
+            socket.on('stopTyping', function (msg) {
+                $('#typing').replaceWith($('<p style="color:aliceblue">').text(msg));
+            });
+        });    
+
+        function isOnline(){
+            retour = "";
+            online.forEach(function(element){
+                retour += " user " + element;
+            });
+            retour += " connected";
+            return retour;
+        }
 

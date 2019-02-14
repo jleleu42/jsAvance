@@ -10,9 +10,19 @@ module.exports = (io) => {
     router.get('/', function (req, res, next) {
 
 
+        
+       
+
+        res.render('chat/chat', {
+            title: 'Vidéconf',
+            slogan: 'votre site web de vidéo conférence'
+        });
+
+        // fonctionne pas :/
         io.on('connection', function (socket) {
-            console.log('ok je suis co')
-          /*  socket.nickname = cpt;
+            
+            console.log('ok je suis co');
+           /* socket.nickname = cpt;
             cpt++
             online.push(cpt);
             io.emit('info co', 'Utilisateur connecté : user ' + socket.nickname);
@@ -35,11 +45,9 @@ module.exports = (io) => {
             });*/
         });
 
-        res.render('chat/chat', {
-            title: 'Vidéconf',
-            slogan: 'votre site web de vidéo conférence'
-        });
-
+        
+        
+        
 
     });
 
@@ -47,5 +55,11 @@ module.exports = (io) => {
 
 
 
+
     return router;
+
+
+
+
+    
 }
