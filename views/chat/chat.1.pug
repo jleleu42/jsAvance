@@ -1,0 +1,41 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="/socket.io/socket.io.js")
+    script(src="https://code.jquery.com/jquery-1.11.1.js")
+
+  body
+    block content
+
+block content
+    
+    h1= title
+    p Bienvenu sur #{title}, #{slogan}
+    h2 Vous chattez avec 
+    ul(id="messages")
+    span(id="status")
+    form(action="")
+        div(id="typing")
+        div(id="stopTyping")
+        div(id="online")
+        input(id="m" autocomplete="off" autofocus)
+        button Send
+    
+    
+    script.
+        var socket = io();    
+        $('form').submit(function (e) {
+            e.preventDefault();
+            socket.emit('chat message', $('#m').val());
+            $('#m').val('');
+            return false;
+            socket.on('connection', function() {
+                e.preventDefault();
+                socket.emit('chat message', $('#m').val());
+                $('#m').val('');
+                return false;
+            });
+        });
+        

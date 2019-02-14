@@ -15,7 +15,7 @@ var userDashboardRouter = require('./routes/user/dashboard');
 var confAddRouter = require('./routes/conf/add');
 var confInsciRouter = require('./routes/conf/inscription_conf');
 var chatChoixRouter = require('./routes/chat/choixuser');
-var chatChatRouter = require('./routes/chat/chat')(io);
+var chatChatRouter = require('./routes/chat/chat');
 var app = express();
 
 

@@ -1,68 +1,91 @@
 doctype html
 html
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    script(src="/socket.io/socket.io.js")
-    script(src="https://code.jquery.com/jquery-1.11.1.js")
-
+    title Socket.IO chat
+    style.
+      * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      }
+      body {
+      font: 13px Helvetica, Arial;
+      }
+      form {
+      background: #000;
+      padding: 3px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      }
+      form input {
+      border: 0;
+      padding: 10px;
+      width: 90%;
+      margin-right: .5%;
+      }
+      form button {
+      width: 9%;
+      background: rgb(130, 224, 255);
+      border: none;
+      padding: 10px;
+      }
+      #messages {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      }
+      #messages li {
+      padding: 5px 10px;
+      }
+      #messages li:nth-child(odd) {
+      background: #eee;
+      }
   body
-    block content
-
-block content
-    
-    h1= title
-    p Bienvenu sur #{title}, #{slogan}
-    h2 Vous chattez avec 
-    ul(id="messages")
-    span(id="whoistyping")
-    form(action="")
-        div(id="typing")
-        div(id="stopTyping")
-        div(id="online")
-        input(id="m" autocomplete="off" autofocus)
-        button Send
-    
-    
+    ul#messages
+    span#whoistyping
+    form(action='')
+      #typing
+      #stopTyping
+      #online
+      input#m(autocomplete='off', autofocus='')
+      button Send
+    script(src='/socket.io/socket.io.js')
+    script(src='https://code.jquery.com/jquery-1.11.1.js')
     script.
-        
-        $(function () { 
-            var socket = io();    
-            $('form').submit(function (e) {
-                e.preventDefault();
-                socket.emit('chat message', $('#m').val());
-                $('#m').val('');
-                return false;
-            });
-            $('#m').on('input', function () {
-                socket.emit('typing');
-            });
-            $('#m').on('blur', function () {
-                socket.emit('stopTyping');
-            });
-            socket.on('chat message', function (msg) {
-                $('#messages').append($('<li>').text(msg));
-            });
-            socket.on('online', function (msg) {
-                $('#online').replaceWith($('<p style="color:aliceblue">').text(msg));
-            });
-            socket.on('info co', function (msg) {
-                $('#messages').append($('<h4>').text(msg));
-            });
-            socket.on('typing', function (msg) {
-                $('#typing').replaceWith($('<p style="color:aliceblue">').text(msg));
-            });
-            socket.on('stopTyping', function (msg) {
-                $('#typing').replaceWith($('<p style="color:aliceblue">').text(msg));
-            });
-        });    
-
-        function isOnline(){
-            retour = "";
-            online.forEach(function(element){
-                retour += " user " + element;
-            });
-            retour += " connected";
-            return retour;
-        }
-
+      $(function () {
+        var socket = io();
+        $('form').submit(function (e) {
+            e.preventDefault();
+            socket.emit('chat message', $('#m').val());
+            $('#m').val('');
+            return false;
+        });
+        $('#m').on('input', function () {
+            socket.emit('typing');
+        });
+        $('#m').on('blur', function () {
+            socket.emit('stopTyping');
+        });
+        socket.on('chat message', function (msg) {
+            $('#messages').append($('<li>').text(msg));
+        });
+        socket.on('online', function (msg) {
+            $('#online').replaceWith($('<p style="color:aliceblue">').text(msg));
+        });
+        socket.on('info co', function (msg) {
+            $('#messages').append($('<h4>').text(msg));
+        });
+        socket.on('typing', function (msg) {
+            $('#typing').replaceWith($('<p style="color:aliceblue">').text(msg));
+        });
+        socket.on('stopTyping', function (msg) {
+            $('#typing').replaceWith($('<p style="color:aliceblue">').text(msg));
+        });
+        /*   let isTyping = false;
+        let timeout;
+        function timeoutFunction(){
+        isTyping = false;
+        socket.emit('nomoretyping', )
+        }*/
+      });
