@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+    h1= title
+    p Bienvenu sur #{title}, #{slogan}
+    h2 Cliquer sur un nom et commencez un chat
+
+    ul
+    each val, index in tabFinal
+        li 
+            a(href='/chat/chat?from=' + moi + '&with=' + val['id']) #{index+1} : #{val['name']} 

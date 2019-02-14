@@ -1,0 +1,46 @@
+extends ../layout
+
+block content
+    h1= title
+    p Bienvenu sur #{title}, #{slogan}
+    h2 DashBoard
+    h3 Vos infos
+    p Vous êtes 
+        i #{monNom} 
+        et votre mail est : 
+        i #{monMail}
+
+    h3 Vous pouvez :
+    a(href='/chat/choixuser/'+monId) Choisir un utilisateur et commencer un chat
+    br
+    case monRang
+        // admin
+        when '2' 
+            a(href='/conf/add/'+monId) Créer une conférence
+        // pas admin
+        when '1' 
+            p Pour créer une conférence vous devez être un administrateur
+    br
+    h3 Voici la liste des conférences possibles :
+    table(style='width:100%', border='1')
+        tr
+            th Numéro
+            th Nom
+            th Description
+            th Date
+            th Heures
+            th Etat
+
+        each val, index in tabFinal
+            tr
+                td #{index+1}
+                td #{val['name']} 
+                td #{val['desc']}
+                td #{val['dated']}
+                td #{val['heured']} / #{val['heuref']}
+                td 
+                    case tabInscri[index]
+                        when 0
+                            a(href='../../conf/inscription_conf?idUser=' + monId + "&idConf="+val['id']) S'inscrire
+                        default
+                            p Déjà inscrit

@@ -1,0 +1,15 @@
+extends ../layout
+
+block content
+    h1= title
+    h2 Connexion
+    p Bienvenu sur #{title}, #{slogan}
+    form(method='POST' action='./connexion')
+        div.form-group
+            label(for='mail') Votre mail :  
+            input#name.form-control(type='text', required placeholder='Mail' name='mail')
+            br
+            label(for='mail') Votre mot de passe :  
+            input#name.form-control(type='password', required placeholder='Mot de passe' name='password')
+            br
+            button.btn.btn-primary(type='submit') Valider

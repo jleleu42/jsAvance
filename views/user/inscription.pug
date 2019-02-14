@@ -1,0 +1,24 @@
+extends ../layout
+
+block content
+    h1= title
+    h2 Inscription
+    p Bienvenu sur #{title}, #{slogan}
+    form(method='POST' action='./inscription')
+        div.form-group
+            label(for='name') Votre nom :   
+            input#name.form-control(type='text', autofocus required placeholder='Nom' name='name')
+            br
+            label(for='mail') Votre mail :  
+            input#name.form-control(type='text', required placeholder='Mail' name='mail')
+            br
+            label(for='mdp') Votre mot de passe :  
+            input#name.form-control(type='password', required placeholder='Mot de passe' name='password')
+            br
+            label(for='admin') Action :  
+            input(type='radio', name='admin', value='1', checked) 
+            label(for='admin') Utilisateur
+            input(type='radio', name='admin', value='2')
+            label(for='admin') Administrateur
+            br
+            button.btn.btn-primary(type='submit') Valider

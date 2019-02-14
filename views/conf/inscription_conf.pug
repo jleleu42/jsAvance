@@ -1,0 +1,37 @@
+extends ../layout
+
+block content
+    h1= title
+    p Bienvenu sur #{title}, #{slogan}
+    h2 DashBoard
+    h3 Vos infos
+    p Vous êtes 
+        i #{monNom} 
+        et votre mail est : 
+        i #{monMail}
+
+    h3 Vous pouvez :
+    br
+    a(href='/conf/add/'+monId) Créer une conférence
+
+    br
+
+    h3 Voici la liste des conférences possibles :
+    table(style='width:100%', border='1')
+        tr
+            th Numéro
+            th Nom
+            th Description
+            th Date
+            th Heures
+            th Etat
+
+        each val, index in tabFinal
+            tr
+                td #{index+1}
+                td #{val['name']} 
+                td #{val['desc']}
+                td #{val['dated']}
+                td #{val['heured']} / #{val['heuref']}
+                td 
+                    a(href=val['name']) S'inscrire

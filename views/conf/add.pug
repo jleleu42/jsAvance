@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+    h1= title
+    p Bienvenu sur #{title}, #{slogan}
+    h2 Créer une conférence #{monNom}
+    form(method='POST' action='./'+monId)
+        div.form-group
+            label(for='createur') Créateur de la conférence :   
+            input#name.form-control(type='text', required placeholder='createur' value=monId readonly name='createur')
+            br
+            label(for='name') Nom de la conférence :   
+            input#name.form-control(type='text', autofocus required placeholder='Nom' name='name')
+            br
+            label(for='desc') Description :  
+            input#name.form-control(type='text', required placeholder='Mail' name='desc')
+            br
+            label(for='date') Date de la conférence :  
+            input(type='date', required name='dated', id='dated')
+            br
+            label(for='time') Heure de début de la conférence :  
+            input(type='time',required name='heured', id='heured')
+            br
+            label(for='time') Heure de fin de la conférence :  
+            input(type='time',required name='heuref', id='heuref')
+            br
+            button.btn.btn-primary(type='submit') Valider
